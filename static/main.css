@@ -5,6 +5,9 @@
 body {
   color: #eee;
   background-color: #222;
+}
+
+h1, h6 {
   text-align: center;
 }
 

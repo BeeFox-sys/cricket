@@ -242,12 +242,12 @@ function ballHit(player){
 
 
 let initialHomeTeam = {
-    name: "Team A",
+    name: "Doors",
     players: [...Array(11)].map(p=>generatePlayer())
 }
 
 let initialAwayTeam = {
-    name: "Team B",
+    name: "Wheels",
     players: [...Array(11)].map(p=>generatePlayer())
 }
 

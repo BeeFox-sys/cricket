@@ -273,10 +273,14 @@ let gameState = JSON.parse(JSON.stringify({...initalGameState, ...persistantGame
 
 console.log(gameState)
 
+setImmediate(()=>{
+    gameState = generatePlay(gameState)
+    fs.writeFileSync(process.env.STATE_OUTPUT, JSON.stringify(gameState))
+})
 setInterval(()=>{
     gameState = generatePlay(gameState)
     fs.writeFileSync(process.env.STATE_OUTPUT, JSON.stringify(gameState))
-}, 5000)
+}, process.env.DELAY)
 
 // console.time("runGame")
 

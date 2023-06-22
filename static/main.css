@@ -1,0 +1,79 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  color: #eee;
+  background-color: #222;
+  text-align: center;
+}
+
+.game {
+  max-width: 60ch;
+  min-height: 25ch;
+  background-color: #000;
+  border-radius: 2rem;
+  margin-inline: auto;
+  padding: 1ch;
+}
+.game .inning {
+  font-size: 1.5rem;
+  text-align: center;
+  margin-bottom: 0;
+}
+.game .scores {
+  font-size: 3rem;
+  text-align: center;
+}
+.game .call {
+  width: 90%;
+  padding: 1ch;
+  height: max-content;
+  margin-inline: auto;
+}
+
+.teams {
+  margin-block: 2ch;
+  display: flex;
+  flex-direction: row;
+  gap: 1ch;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.teams .team {
+  background-color: #000;
+  border-radius: 2rem;
+  min-width: 30ch;
+  max-width: 50ch;
+  flex: 1;
+  padding-block: 1ch;
+}
+.teams .team .teamName {
+  font-size: 2em;
+  text-align: center;
+}
+.teams .team .players {
+  list-style: none;
+}
+.teams .team .players .player {
+  display: flex;
+  flex-direction: column;
+}
+.teams .team .players .player .playerName {
+  text-align: center;
+}
+.teams .team .players .player .stat {
+  max-width: 20ch;
+  margin-inline: auto;
+  width: 100%;
+  display: block;
+  position: relative;
+  padding-inline-start: 1ch;
+}
+.teams .team .players .player .stat .stars {
+  position: absolute;
+  right: 1ch;
+  --_percent: 50%;
+  mask-image: linear-gradient(to right, black, black var(--_percent), white var(--_percent), white);
+  mask-mode: luminance;
+}

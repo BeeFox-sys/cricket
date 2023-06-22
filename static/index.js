@@ -43,7 +43,7 @@ function addPlayer(player){
 
 async function load(){
     let gameState = await fetch("/gameState").then((res)=>res.json())
-    document.querySelector(".inning").innerText = `Inning: ${gameState.inning}`
+    document.querySelector(".inning").innerText = `Inning: ${gameState.inning + 1}`
     document.querySelector(".scores").innerText = `${gameState.homeRuns} - ${gameState.awayRuns}`
     document.querySelector(".call").innerText = `${gameState.call}`
 }

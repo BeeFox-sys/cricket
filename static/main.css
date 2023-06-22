@@ -79,4 +79,5 @@ h1, h6 {
   --_percent: 50%;
   mask-image: linear-gradient(to right, black, black var(--_percent), white var(--_percent), white);
   mask-mode: luminance;
+  -webkit-mask-image: linear-gradient(to right, transparent, transparent var(--_percent), white var(--_percent), white);
 }

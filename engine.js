@@ -118,6 +118,18 @@ function generatePlay(gameState){
 
     if(gameState.balls === 0) nextGameState.call += `${bowler.firstName} ${bowler.lastName} bowling.\n`
 
+    if(gameState.outs.length >= battingTeam.players.length - 1){
+        nextGameState.call += `Inning Over!\n`
+        nextGameState.inning ++
+        nextGameState.outs = []
+        nextGameState.balls = 0
+        nextGameState.strikerIndex = 0
+        nextGameState.bowlerIndex = 0
+        nextGameState.wicketKeeperIndex = 1
+        nextGameState.nonStrikerIndex = 1
+        return nextGameState
+    }
+
     nextGameState.call += `${batter.firstName} ${batter.lastName} is up to bat!\n`
 
     if((batter.batting+Math.random())/2 > (bowler.bowling+Math.random())/2){
@@ -178,7 +190,21 @@ function generatePlay(gameState){
 
         while (nextGameState.outs.includes(nextGameState.strikerIndex)) nextGameState.strikerIndex ++
 
-        nextGameState.call += "Bowled!\n"
+        if(Math.random() < 0.01) {
+            nextGameState.call += `Leg Before Wicket!\n🔥${batter.firstName} ${batter.lastName} is elminated!🔥\n`
+
+            let newPlayer = generatePlayer()
+            if(gameState.inning % 2 == 1) {
+                nextGameState.awayTeam.players[gameState.strikerIndex] = newPlayer;
+            } else {
+                nextGameState.homeTeam.players[gameState.strikerIndex] = newPlayer;
+            }
+
+            nextGameState.call += `${batter.firstName} ${batter.lastName} is replaced by ${newPlayer.firstName} ${newPlayer.lastName}`
+            
+        } else {
+            nextGameState.call += "Bowled!\n"
+        }
     }
 
     nextGameState.balls++
@@ -193,17 +219,6 @@ function generatePlay(gameState){
         nextGameState.call += "Over!\n"
 
         nextGameState.balls = 0
-    }
-
-    if(gameState.outs.length >= battingTeam.players.length - 1){
-        nextGameState.call += `Inning Over!\n`
-        nextGameState.inning ++
-        nextGameState.outs = []
-        nextGameState.balls = 0
-        nextGameState.strikerIndex = 0
-        nextGameState.bowlerIndex = 0
-        nextGameState.wicketKeeperIndex = 1
-        nextGameState.nonStrikerIndex = 1
     }
 
     nextGameState.call = nextGameState.call.trim()

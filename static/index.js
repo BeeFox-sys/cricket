@@ -6,6 +6,9 @@ async function initalLoad(){
     document.querySelector("#homeTeam .teamName").innerText = gameState.homeTeam.name
     document.querySelector("#awayTeam .teamName").innerText = gameState.awayTeam.name
 
+    document.querySelector("#awayTeam .players").innerHTML = ""
+    document.querySelector("#homeTeam .players").innerHTML = ""
+
     gameState.homeTeam.players.forEach(addPlayer, document.querySelector("#homeTeam .players"));
 
     gameState.awayTeam.players.forEach(addPlayer, document.querySelector("#awayTeam .players"));
@@ -51,3 +54,4 @@ async function load(){
 initalLoad()
 
 setInterval(load, 5000)
+setInterval(initalLoad, 60000)

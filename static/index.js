@@ -46,6 +46,7 @@ function addPlayer(player){
 
 async function load(){
     let gameState = await fetch("/gameState").then((res)=>res.json())
+    if(gameState.updatePlayers) return initalLoad();
     document.querySelector(".inning").innerText = `Inning: ${gameState.inning + 1}`
     document.querySelector(".scores").innerText = `${gameState.homeRuns} - ${gameState.awayRuns}`
     document.querySelector(".call").innerText = `${gameState.call}`
@@ -54,4 +55,3 @@ async function load(){
 initalLoad()
 
 setInterval(load, 5000)
-setInterval(initalLoad, 60000)

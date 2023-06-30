@@ -104,6 +104,7 @@ function generatePlay(gameState){
 
     let nextGameState = JSON.parse(JSON.stringify(gameState))
     nextGameState.call = ""
+    nextGameState.updatePlayers = false;
 
     let battingTeam = gameState.homeTeam;
     let fieldingTeam = gameState.awayTeam;
@@ -192,6 +193,8 @@ function generatePlay(gameState){
 
         if(Math.random() < 0.01) {
             nextGameState.call += `Leg Before Wicket!\n🔥${batter.firstName} ${batter.lastName} is elminated!🔥\n`
+
+            nextGameState.updatePlayers = true;
 
             let newPlayer = generatePlayer()
             if(gameState.inning % 2 == 1) {

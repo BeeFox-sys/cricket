@@ -1,3 +1,4 @@
+@charset "UTF-8";
 * {
   box-sizing: border-box;
 }
@@ -62,6 +63,9 @@ h1, h6 {
   display: flex;
   flex-direction: column;
 }
+.teams .team .players .player summary {
+  cursor: pointer;
+}
 .teams .team .players .player .playerName {
   text-align: center;
 }
@@ -80,4 +84,25 @@ h1, h6 {
   mask-image: linear-gradient(to right, black, black var(--_percent), white var(--_percent), white);
   mask-mode: luminance;
   -webkit-mask-image: linear-gradient(to right, transparent, transparent var(--_percent), white var(--_percent), white);
+}
+.teams #memorial {
+  max-width: 80ch;
+}
+.teams #memorial .players {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1ch 4ch;
+  padding-inline: 1em;
+  justify-content: center;
+}
+.teams #memorial .players .player {
+  width: 25ch;
+  flex-grow: 1;
+}
+.teams #memorial .players .player summary {
+  list-style: none;
+}
+.teams #memorial .players .player summary::before, .teams #memorial .players .player summary::after {
+  content: "🪦";
+  margin-inline: 1ch;
 }

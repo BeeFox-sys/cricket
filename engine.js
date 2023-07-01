@@ -7,6 +7,7 @@ const GameState = {
     inning: "number",
     home: "team",
     away: "team",
+    memorial: "team",
     outPlayers: ["numbers"],
     strikerIndex: "number",
     nonStrikerIndex: "number",
@@ -114,7 +115,7 @@ function generatePlay(gameState){
         fieldingTeam = gameState.homeTeam;
     }
 
-    let batter = battingTeam.players[gameState.strikerIndex]
+    let striker = battingTeam.players[gameState.strikerIndex]
     let bowler = fieldingTeam.players[gameState.bowlerIndex]
 
     if(gameState.balls === 0) nextGameState.call += `${bowler.firstName} ${bowler.lastName} bowling.\n`
@@ -131,10 +132,10 @@ function generatePlay(gameState){
         return nextGameState
     }
 
-    nextGameState.call += `${batter.firstName} ${batter.lastName} is up to bat!\n`
+    nextGameState.call += `${striker.firstName} ${striker.lastName} is up to bat!\n`
 
-    if((batter.batting+Math.random())/2 > (bowler.bowling+Math.random())/2){
-        let ballLocation = ballHit(batter)
+    if((striker.batting+Math.random())/2 > (bowler.bowling+Math.random())/2){
+        let ballLocation = ballHit(striker)
         // console.log(calcDistance(ballLocation, {t:0,r:0}))
         let closestPlayer = -1;
         let closestDistance = Number.MAX_VALUE;
@@ -192,9 +193,11 @@ function generatePlay(gameState){
         while (nextGameState.outs.includes(nextGameState.strikerIndex)) nextGameState.strikerIndex ++
 
         if(Math.random() < 0.01) {
-            nextGameState.call += `Leg Before Wicket!\n🔥${batter.firstName} ${batter.lastName} is elminated!🔥\n`
+            nextGameState.call += `Leg Before Wicket!\n🔥${striker.firstName} ${striker.lastName} is elminated!🔥\n`
 
             nextGameState.updatePlayers = true;
+
+            nextGameState.memorial.players.push(striker)
 
             let newPlayer = generatePlayer()
             if(gameState.inning % 2 == 1) {
@@ -203,7 +206,7 @@ function generatePlay(gameState){
                 nextGameState.homeTeam.players[gameState.strikerIndex] = newPlayer;
             }
 
-            nextGameState.call += `${batter.firstName} ${batter.lastName} is replaced by ${newPlayer.firstName} ${newPlayer.lastName}`
+            nextGameState.call += `${striker.firstName} ${striker.lastName} is replaced by ${newPlayer.firstName} ${newPlayer.lastName}`
             
         } else {
             nextGameState.call += "Bowled!\n"
@@ -269,10 +272,16 @@ let initialAwayTeam = {
     players: [...Array(11)].map(p=>generatePlayer())
 }
 
+let emptyMemorial = {
+    name: "Memorial",
+    players: []
+}
+
 const initalGameState = {
     inning: 0,
     homeTeam: initialHomeTeam,
     awayTeam: initialAwayTeam,
+    memorial: emptyMemorial,
     homeRuns: 0,
     awayRuns: 0,
     strikerIndex: 0,

@@ -8,10 +8,16 @@ async function initalLoad(){
 
     document.querySelector("#awayTeam .players").innerHTML = ""
     document.querySelector("#homeTeam .players").innerHTML = ""
+    document.querySelector("#memorial .players").innerHTML = ""
+
+
 
     gameState.homeTeam.players.forEach(addPlayer, document.querySelector("#homeTeam .players"));
 
     gameState.awayTeam.players.forEach(addPlayer, document.querySelector("#awayTeam .players"));
+
+    gameState.memorial.players.forEach(addPlayer, document.querySelector("#memorial .players"));
+
 }
 
 function addPlayer(player){
@@ -54,4 +60,4 @@ async function load(){
 
 initalLoad()
 
-setInterval(load, 5000)
+setInterval(load, 25)

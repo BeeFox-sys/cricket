@@ -14,8 +14,12 @@ const { signal } = ac;
       const watcher = watch(process.env.PERSISTANT_STATE, { signal });
       for await (const event of watcher)
         if(event.eventType === "change"){
+          try{
             let state = fs.existsSync(process.env.PERSISTANT_STATE) ? JSON.parse(fs.readFileSync(process.env.PERSISTANT_STATE)) : {};
             console.log(state)
+          } catch (err) {
+            console.error("Json Read Error")
+          }
         }
     } catch (err) {
       if (err.name === 'AbortError')

@@ -90,10 +90,11 @@ h1, h6 {
 }
 .teams #memorial .players {
   display: flex;
-  flex-wrap: wrap;
   gap: 1ch 4ch;
   padding-inline: 1em;
   justify-content: center;
+  flex-direction: row-reverse;
+  flex-wrap: wrap-reverse;
 }
 .teams #memorial .players .player {
   width: 25ch;

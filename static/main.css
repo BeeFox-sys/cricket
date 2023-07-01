@@ -87,6 +87,7 @@ h1, h6 {
 }
 .teams #memorial {
   max-width: 80ch;
+  text-align: center;
 }
 .teams #memorial .players {
   display: flex;

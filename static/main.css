@@ -76,6 +76,7 @@ h1, h6 {
   display: block;
   position: relative;
   padding-inline-start: 1ch;
+  text-align: left;
 }
 .teams .team .players .player .stat .stars {
   position: absolute;

@@ -60,4 +60,4 @@ async function load(){
 
 initalLoad()
 
-setInterval(load, 25)
+setInterval(load, 1000)

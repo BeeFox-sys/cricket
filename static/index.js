@@ -1,5 +1,6 @@
 async function initalLoad(){
     let gameState = await fetch("/gameState").then((res)=>res.json())
+    let memorial = (await fetch("/memorial").then((res)=>(res.json()))).memorial
 
     load()
 
@@ -16,7 +17,7 @@ async function initalLoad(){
 
     gameState.awayTeam.players.forEach(addPlayer, document.querySelector("#awayTeam .players"));
 
-    gameState.memorial.players.forEach(addPlayer, document.querySelector("#memorial .players"));
+    memorial.players.forEach(addPlayer, document.querySelector("#memorial .players"));
 
 }
 

@@ -9,14 +9,15 @@ import { watch } from "node:fs/promises"
 const ac = new AbortController();
 const { signal } = ac;
 
+let state;
+
 (async () => {
     try {
       const watcher = watch(process.env.PERSISTANT_STATE, { signal });
       for await (const event of watcher)
         if(event.eventType === "change"){
           try{
-            let state = fs.existsSync(process.env.PERSISTANT_STATE) ? JSON.parse(fs.readFileSync(process.env.PERSISTANT_STATE)) : {};
-            console.log(state)
+            state = JSON.parse(fs.readFileSync(process.env.PERSISTANT_STATE));
           } catch (err) {
             console.error("Json Read Error")
           }
@@ -29,7 +30,12 @@ const { signal } = ac;
   })(); 
 
 
-app.use("/gameState", (req, res)=>{res.sendFile(process.env.PERSISTANT_STATE, {root:"."})})
+app.use("/gameState", (req, res) => {
+  res.json({...state, ...{memorial: null}})
+})
+app.use("/memorial", (req, res) => {
+  res.json({memorial: state.memorial})
+})
 app.use("/static", express.static("./static",{root: "."}))
 app.use("/", (req, res)=>{res.sendFile("./static/index.html", {root:"."})})
 app.listen(process.env.PORT, ()=>{console.log("Listening on",process.env.PORT)})

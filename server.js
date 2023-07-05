@@ -1,7 +1,7 @@
 import "dotenv/config"
 import fs from "fs"
 
-import express from "express"
+import express, { json } from "express"
 const app = express()
 
 import { watch } from "node:fs/promises"
@@ -16,10 +16,16 @@ let state;
       const watcher = watch(process.env.PERSISTANT_STATE, { signal });
       for await (const event of watcher)
         if(event.eventType === "change"){
+          let jsonfile = fs.readFileSync(process.env.PERSISTANT_STATE)
           try{
-            state = JSON.parse(fs.readFileSync(process.env.PERSISTANT_STATE));
+            state = JSON.parse(jsonfile);
           } catch (err) {
-            console.error("Json Read Error")
+            if(err.message === "Unexpected end of JSON input"){
+              console.error("File was still being written to.")
+            } 
+            else console.error(err.message)
+            // console.error(err)
+            // console.error(jsonfile.toString())
           }
         }
     } catch (err) {

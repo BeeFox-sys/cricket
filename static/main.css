@@ -87,7 +87,7 @@ h1, h6 {
   -webkit-mask-image: linear-gradient(to right, transparent, transparent var(--_percent), white var(--_percent), white);
 }
 .teams #memorial {
-  max-width: 80ch;
+  max-width: 120ch;
   text-align: center;
 }
 .teams #memorial .players {

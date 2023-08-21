@@ -1,20 +1,12 @@
 async function initalLoad(){
-    let gameState = await fetch("/gameState.json").then((res)=>res.json())
+    let memorial = (await fetch("/memorial.json").then((res)=>(res.json()))).memorial
 
     load()
 
-    document.querySelector("#homeTeam .teamName").innerText = gameState.homeTeam.name
-    document.querySelector("#awayTeam .teamName").innerText = gameState.awayTeam.name
-
-    document.querySelector("#awayTeam .players").innerHTML = ""
-    document.querySelector("#homeTeam .players").innerHTML = ""
+    document.querySelector("#memorial .players").innerHTML = ""
 
 
-
-    gameState.homeTeam.players.forEach(addPlayer, document.querySelector("#homeTeam .players"));
-
-    gameState.awayTeam.players.forEach(addPlayer, document.querySelector("#awayTeam .players"));
-
+    memorial.players.forEach(addPlayer, document.querySelector("#memorial .players"));
 
 }
 
@@ -51,9 +43,6 @@ function addPlayer(player){
 async function load(){
     let gameState = await fetch("/gameState.json").then((res)=>res.json())
     if(gameState.updatePlayers) return initalLoad();
-    document.querySelector(".inning").innerText = `Inning: ${gameState.inning + 1}`
-    document.querySelector(".scores").innerText = `${gameState.homeRuns} - ${gameState.awayRuns}`
-    document.querySelector(".call").innerText = `${gameState.call}`
 }
 
 initalLoad()

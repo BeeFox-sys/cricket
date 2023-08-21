@@ -192,7 +192,7 @@ function generatePlay(gameState){
 
         while (nextGameState.outs.includes(nextGameState.strikerIndex)) nextGameState.strikerIndex ++
 
-        if(Math.random() < 0.01) {
+        if(Math.random() < 0.001) {
             nextGameState.call += `Leg Before Wicket!\n🔥${striker.firstName} ${striker.lastName} is elminated!🔥\n`
 
             nextGameState.updatePlayers = true;

@@ -36,12 +36,13 @@ let state;
   })(); 
 
 
-app.use("/gameState", (req, res) => {
+app.use("/gameState.json", (req, res) => {
   res.json({...state, ...{memorial: null}})
 })
-app.use("/memorial", (req, res) => {
+app.use("/memorial.json", (req, res) => {
   res.json({memorial: state.memorial})
 })
+app.use("/memorial", (req, res) => res.sendFile("./static/memorial.html", {root: "."}))
 app.use("/static", express.static("./static",{root: "."}))
 app.use("/", (req, res)=>{res.sendFile("./static/index.html", {root:"."})})
 app.listen(process.env.PORT, ()=>{console.log("Listening on",process.env.PORT)})
